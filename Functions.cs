@@ -8,6 +8,9 @@ namespace RobloxManipulator
 	{
 		public const string ExploitDllName = "RobloxManipulator.dll";
 		private static bool alreadyInjected = false;
+		private static bool _injected = false;
+
+		public static bool Injected => _injected;
 		
 		public static void Inject()
 		{
@@ -15,6 +18,7 @@ namespace RobloxManipulator
 			{
 				MessageBox.Show("Already injected!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 				alreadyInjected = true;
+				_injected = true;
 				return;
 			}
 			else if (!NamedPipes.NamedPipeExists(NamedPipes.LuaPipeName))
@@ -32,12 +36,14 @@ namespace RobloxManipulator
 						return;
 				}
 				alreadyInjected = false;
+				_injected = false;
 			}
 			Thread.Sleep(3000);
 			if (!NamedPipes.NamedPipeExists(NamedPipes.LuaPipeName))
 			{
 				MessageBox.Show("Injection failed!\nMaybe you are missing or took more time to check if was ready or other stuff.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 				alreadyInjected = false;
+				_injected = false;
 			}
 		}
 		public static void Execute(string script)
