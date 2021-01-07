@@ -39,13 +39,13 @@ namespace RobloxManipulator
 
 		public static void LuaPipe(string script)
 		{
-			if (NamedPipeExists(luaPipeName))
+			if (NamedPipeExists(LuaPipeName))
 			{
 				new Thread(() =>
 				{
 					try
 					{
-						using (NamedPipeClientStream namedPipeClientStream = new NamedPipeClientStream(".", luaPipeName, PipeDirection.Out))
+						using (NamedPipeClientStream namedPipeClientStream = new NamedPipeClientStream(".", LuaPipeName, PipeDirection.Out))
 						{
 							namedPipeClientStream.Connect();
 							using (StreamWriter streamWriter = new StreamWriter(namedPipeClientStream, Encoding.Default, 999999))
@@ -68,7 +68,7 @@ namespace RobloxManipulator
 			}
 			else
 			{
-				MessageBox.Show("Inject ", + Functions.ExploitDllName + " before using this!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				MessageBox.Show("Inject " + Functions.ExploitDllName + " before using this!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return;
 			}
 		}
